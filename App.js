@@ -9,49 +9,76 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+class Square extends Component{
+
+  render(){
+    return(
+    <TouchableWithoutFeedback 
+    onPress={()=> this.props.onClick(this.props.value)}
+    >
+      <View>
+        <Text>{this.props.value}</Text>
+      </View>
+    </TouchableWithoutFeedback>
+    );
+  }
+}
+
+class Board extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null),
+    };
+    this.state.squares[0]='YYY';
+  }
+  
+  handleClick(i){
+    var current = this.state;
+    current.squares[0] = 'XXX';
+    this.setState(current);
+  }
+
+  renderSquare(i){
+    return(
+      <Square value={this.state.squares[i]} onClick = {(i)=> this.handleClick(i)}/>
+    );
+  }
+
+
+  render(){
+    return(
+      <View>
+        {/* renderSquare(0); */}
+        {/* <Square value={this.state.squares[0]}/> */}
+        {this.renderSquare(0)}
+      </View>
+    );
+  }
+}
+
 
 export default class App extends Component {
+  constructor(props){
+    super(props);
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native
+      <View>
+        <Text>
+          dfsafdasfads
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <Board/>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+
 });
