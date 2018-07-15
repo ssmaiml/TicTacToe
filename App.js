@@ -18,7 +18,7 @@ class Square extends Component{
   render(){
     return(
     <TouchableWithoutFeedback 
-    onPress={()=> this.props.onClick(this.props.value)}
+    onPress={this.props.onClick}
     >
       <View>
         <Text>{this.props.value}</Text>
@@ -32,20 +32,22 @@ class Board extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      squares: Array(9).fill(null),
+      squares: Array(9).fill('Y'),
     };
-    this.state.squares[0]='YYY';
   }
   
   handleClick(i){
     var current = this.state;
-    current.squares[0] = 'XXX';
+    current.squares[i] = 'X';
     this.setState(current);
   }
 
   renderSquare(i){
     return(
-      <Square value={this.state.squares[i]} onClick = {(i)=> this.handleClick(i)}/>
+      <Square 
+      value={this.state.squares[i]} 
+      onClick = {()=> this.handleClick(i)}
+      />
     );
   }
 
@@ -56,6 +58,14 @@ class Board extends Component{
         {/* renderSquare(0); */}
         {/* <Square value={this.state.squares[0]}/> */}
         {this.renderSquare(0)}
+        {this.renderSquare(1)}
+        {this.renderSquare(2)}
+        {this.renderSquare(3)}
+        {this.renderSquare(4)}
+        {this.renderSquare(5)}
+        {this.renderSquare(6)}
+        {this.renderSquare(7)}
+        {this.renderSquare(8)}
       </View>
     );
   }
@@ -71,7 +81,7 @@ export default class App extends Component {
     return (
       <View>
         <Text>
-          dfsafdasfads
+          dfsafdasfad
         </Text>
         <Board/>
       </View>
